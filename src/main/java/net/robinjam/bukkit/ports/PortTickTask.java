@@ -6,9 +6,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import net.milkbowl.vault.economy.Economy;
 import net.robinjam.bukkit.ports.persistence.Port;
-import net.robinjam.bukkit.util.EconomyUtils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
@@ -178,16 +176,6 @@ public class PortTickTask implements Runnable, Listener {
 			return false;
 		}
 		
-		// Ensure the player has enough money to use the port (if required)
-		Economy economy;
-		if (port.getPrice() != null && (economy = EconomyUtils.getEconomy()) != null) {
-			if (economy.withdrawPlayer(player.getName(), port.getPrice()).transactionSuccess()) {
-				player.sendMessage(plugin.translate("port-tick-task.payment-taken", economy.format(port.getPrice())));
-			} else {
-				player.sendMessage(plugin.translate("port-tick-task.not-enough-money", port.getDescription(), economy.format(port.getPrice())));
-				return false;
-			}
-		}
 
 		// Remove the ticket from the player's hand
 		if (ticketItemId != null) {
