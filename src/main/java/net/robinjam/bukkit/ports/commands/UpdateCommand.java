@@ -43,8 +43,7 @@ public class UpdateCommand implements CommandExecutor {
 			
 			Region selection;
 			try {
-				selection = session.getSelection(new BukkitWorld(player
-						.getWorld()));
+				selection = session.getSelection(new BukkitWorld(player.getWorld()));
 			} catch (IncompleteRegionException ex) {
 				sender.sendMessage(ChatColor.RED
 						+ "Please select the activation area using WorldEdit first.");

@@ -9,8 +9,6 @@ import java.util.Set;
 import net.robinjam.bukkit.ports.persistence.Port;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -169,7 +167,7 @@ public class PortTickTask implements Runnable, Listener {
 		// Ensure the player is carrying the correct ticket (if required)
 		Integer ticketItemId = port.getTicketItemId();
 		Integer ticketDataValue = port.getTicketDataValue();
-		ItemStack heldItem = player.getItemInHand();
+		ItemStack heldItem = player.getInventory().getItemInMainHand();
 		byte heldData = heldItem.getData().getData();
 		if (ticketItemId != null && heldItem.getTypeId() != ticketItemId || (ticketDataValue != null && heldData != ticketDataValue)) {
 			player.sendMessage(plugin.translate("port-tick-task.no-ticket", port.getDescription()));
@@ -179,11 +177,11 @@ public class PortTickTask implements Runnable, Listener {
 
 		// Remove the ticket from the player's hand
 		if (ticketItemId != null) {
-			int heldItemAmount = player.getItemInHand().getAmount();
+			int heldItemAmount = player.getInventory().getItemInMainHand().getAmount();
 			if (heldItemAmount == 1)
-				player.setItemInHand(null);
+				player.getInventory().getItemInMainHand().setAmount(0);
 			else
-				player.getItemInHand().setAmount(heldItemAmount - 1);
+				player.getInventory().getItemInMainHand().setAmount(heldItemAmount - 1);
 			player.sendMessage(plugin.translate("port-tick-task.ticket-taken"));
 		}
 		
@@ -196,11 +194,6 @@ public class PortTickTask implements Runnable, Listener {
 		// Reset the player's fall distance so they don't take fall damage
 		player.setFallDistance(0.0f);
 
-		// Refresh the chunk to prevent chunk errors
-		World world = player.getWorld();
-		Chunk chunk = world.getChunkAt(player.getLocation());
-		world.refreshChunk(chunk.getX(), chunk.getZ());
 		player.sendMessage(Ports.getInstance().translate("port-tick-task.depart"));
 	}
-
 }

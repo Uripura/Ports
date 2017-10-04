@@ -1,7 +1,5 @@
 package net.robinjam.bukkit.ports;
 
-import java.io.IOException;
-
 import net.robinjam.bukkit.ports.commands.*;
 import net.robinjam.bukkit.ports.persistence.PersistentCuboidRegion;
 import net.robinjam.bukkit.ports.persistence.PersistentLocation;

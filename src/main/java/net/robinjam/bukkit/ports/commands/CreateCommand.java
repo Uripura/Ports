@@ -32,8 +32,7 @@ public class CreateCommand implements CommandExecutor {
 		}
 
 		Player player = (Player) sender;
-		LocalSession session = WorldEdit.getInstance().getSession(
-				player.getName());
+		LocalSession session = WorldEdit.getInstance().getSession( player.getName());
 		if (session == null) {
 			sender.sendMessage(ChatColor.RED
 					+ "Please select the activation area using WorldEdit first.");
@@ -42,8 +41,7 @@ public class CreateCommand implements CommandExecutor {
 		
 		Region selection;
 		try {
-			selection = session
-					.getSelection(new BukkitWorld(player.getWorld()));
+			selection = session.getSelection(new BukkitWorld(player.getWorld()));
 		} catch (IncompleteRegionException ex) {
 			sender.sendMessage(ChatColor.RED
 					+ "Please select the activation area using WorldEdit first.");
