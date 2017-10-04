@@ -1,6 +1,6 @@
 name: Ports
 main: net.robinjam.bukkit.ports.Ports
-version: ${project.version}
+version: 0.3.4
 author: robinjam
 depend: [WorldEdit]
 
